@@ -11,29 +11,27 @@
       <p class="page_status">(initial page)</p>
       <button class="refresh">Click to refresh</button>
     </div>
+    <div class="tweets">
+    <div>
     <script>
 
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
 
-        /*
-        var deepCopyNewArrayElements = function(array, differenceInLengths) {
-          var arrayCopy = [];
-          var previousLength = array.length - differenceInLengths;
+        $body.prepend('<div class="title">\
+            <h1>Welcome to Twittler!</h1>\
+            <p class="page_status">(initial page)</p>\
+            <button class="refresh">Click to refresh</button>\
+        </div>');
 
-          //iterate through the array starting from the previous length
-            //push an individual element onto the copy
-          for (var i = previousLength; i < array.length; i++) {
-            arrayCopy.push(array[i]);
-          }
-          return arrayCopy;
-        }
-        */
+        $body.append('<div class="tweets">\
+          <div>');
+
+        $body = $('body').find('.tweets');
 
         //Copies the undisplayed part of the streams data structure
         var getNewStreams = function(newStreams, streams, differenceInLengths) {
-          //newStreams.home = deepCopyNewArrayElements(streams.home, differenceInLengths);
           var currentHomeLength = streams.home.length;
           var previousHomeLength = currentHomeLength - differenceInLengths;
 
@@ -74,7 +72,8 @@
             var $tweet = $('<div></div>');
 
             $tweet.text('@' + tweet.user + ': ' + tweet.message);
-            $tweet.appendTo($body);
+            //changed appendTo to prependTo
+            $tweet.prependTo($body);
             index -= 1;
           }
         };
@@ -82,12 +81,6 @@
         var getNewTweets = showNewStreams(getTweets);
 
         getNewTweets();
-
-        $body.prepend('<div class="title">\
-            <h1>Welcome to Twittler!</h1>\
-            <p class="page_status">(initial page)</p>\
-            <button class="refresh">Click to refresh</button>\
-          </div>');
 
         $('.title').on('click', '.refresh', function() {
           //alert('clicked!');

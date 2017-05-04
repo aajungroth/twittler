@@ -15,3 +15,8 @@ div {
   border-style: solid;
   border-color: blue;
 }
+
+.tweets {
+  border-style: dashed;
+  border-color: green;
+}
