@@ -17,7 +17,56 @@
         var $body = $('body');
         $body.html('');
 
-        var getTweets = function() {
+        /*
+        var deepCopyNewArrayElements = function(array, differenceInLengths) {
+          var arrayCopy = [];
+          var previousLength = array.length - differenceInLengths;
+
+          //iterate through the array starting from the previous length
+            //push an individual element onto the copy
+          for (var i = previousLength; i < array.length; i++) {
+            arrayCopy.push(array[i]);
+          }
+          return arrayCopy;
+        }
+        */
+
+        //Copies the undisplayed part of the streams data structure
+        var getNewStreams = function(newStreams, streams, differenceInLengths) {
+          //newStreams.home = deepCopyNewArrayElements(streams.home, differenceInLengths);
+          var currentHomeLength = streams.home.length;
+          var previousHomeLength = currentHomeLength - differenceInLengths;
+
+          newStreams.home = streams.home.slice(previousHomeLength, currentHomeLength);
+          for (var user in streams.users) {
+            //gets all of the tweets for a given user
+            newStreams.users[user] = streams.users[user].slice();
+          }
+        };
+
+        var showNewStreams = function(showStreams) {
+          var streamsLength = 0;
+
+          //input global stream variable
+          //output a call to getTweets that only displays new tweets
+          //procedure looks at the difference in length between the new streams and
+            //old streams and only passes those tweets in that range to get tweets
+            //still gets every user and their tweets
+          return function() {
+            var newStreams = {};
+            newStreams.home = [];
+            newStreams.users = {};
+            var differenceInLengths = streams.home.length - streamsLength;
+
+            if (differenceInLengths > 0) {
+              streamsLength = streams.home.length;
+              getNewStreams(newStreams, streams, differenceInLengths);
+              showStreams(newStreams);
+            }
+          }
+        };
+
+        var getTweets = function(streams) {
           var index = streams.home.length - 1;
 
           while(index >= 0){
@@ -30,7 +79,9 @@
           }
         };
 
-        getTweets();
+        var getNewTweets = showNewStreams(getTweets);
+
+        getNewTweets();
 
         $body.prepend('<div class="title">\
             <h1>Welcome to Twittler!</h1>\
@@ -42,7 +93,7 @@
           //alert('clicked!');
           $(this).closest('body').find('.page_status')
             .text('(refreshed)');
-          getTweets();
+          getNewTweets();
         });
       });
     </script>
