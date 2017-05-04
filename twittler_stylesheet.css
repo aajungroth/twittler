@@ -1,0 +1,17 @@
+div {
+  border-style: solid;
+}
+
+.page_status {
+  color: red;
+}
+
+.refresh {
+  border-style: solid;
+  border-color: orange;
+}
+
+.title {
+  border-style: solid;
+  border-color: blue;
+}

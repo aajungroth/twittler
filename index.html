@@ -3,25 +3,48 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel="stylesheet" href="twittler_stylesheet.css"/>
   </head>
   <body>
+    <div class="title">
+      <h1>Welcome to Twittler!</h1>
+      <p class="page_status">(initial page)</p>
+      <button class="refresh">Click to refresh</button>
+    </div>
     <script>
 
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
+        var getTweets = function() {
+          var index = streams.home.length - 1;
 
+          while(index >= 0){
+            var tweet = streams.home[index];
+            var $tweet = $('<div></div>');
+
+            $tweet.text('@' + tweet.user + ': ' + tweet.message);
+            $tweet.appendTo($body);
+            index -= 1;
+          }
+        };
+
+        getTweets();
+
+        $body.prepend('<div class="title">\
+            <h1>Welcome to Twittler!</h1>\
+            <p class="page_status">(initial page)</p>\
+            <button class="refresh">Click to refresh</button>\
+          </div>');
+
+        $('.title').on('click', '.refresh', function() {
+          //alert('clicked!');
+          $(this).closest('body').find('.page_status')
+            .text('(refreshed)');
+          getTweets();
+        });
       });
-
     </script>
   </body>
 </html>
