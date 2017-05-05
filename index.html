@@ -54,25 +54,30 @@
             //tweets, but for the specific user
         $('.tweets').on('click', '.user_name', function() {
           var userName = $(this).data().name;
-          var tweet = streams.users[userName][0];
-          var $tweet = $('<div class=time_line>\
-            <div class=user></div>\
-            <div class=time_stamp></div>\
-            </div>');
+          var index = streams.users[userName].length - 1;
 
           $('.time_line').remove();
-          $tweet.find('.user').text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.find('.time_stamp').text('> ' + tweet.created_at);
-          $tweet.appendTo($(this).closest('.tweet'));
+          while(index >= 0) {
+            var tweet = streams.users[userName][index];
+            var $tweet = $('<div class=time_line>\
+              <div class=user></div>\
+              <div class=time_stamp></div>\
+              </div>');
+
+            $tweet.find('.user').text('@' + tweet.user + ': ' + tweet.message);
+            $tweet.find('.time_stamp').text('> ' + tweet.created_at);
+            $tweet.appendTo($(this).closest('.tweet'));
+            index -= 1;
+          };
         });
 
         $('.tweets').on('click', '.time_line', function() {
-          $(this).remove();
+          $('.time_line').remove();
         });
 
         var scheduleNextUpdate = function(){
           getTweets();
-          setTimeout(scheduleNextUpdate, 10000);
+          setTimeout(scheduleNextUpdate, 60000);
         };
         scheduleNextUpdate();
       });
