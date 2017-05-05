@@ -8,7 +8,6 @@
   <body>
     <div class="title">
       <h1>Welcome to Twittler!</h1>
-      <p class="page_status">(initial page)</p>
       <button class="refresh">Click to refresh</button>
     </div>
     <div class="tweets">
@@ -36,11 +35,9 @@
         getTweets();
 
         $('.title').on('click', '.refresh', function() {
-          //alert('clicked!');
-          $(this).closest('body').find('.page_status')
-            .text('(refreshed)');
           getTweets();
         });
+        //Use schedule timeout to automatically update
       });
     </script>
   </body>
