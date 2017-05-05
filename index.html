@@ -37,7 +37,13 @@
         $('.title').on('click', '.refresh', function() {
           getTweets();
         });
-        //Use schedule timeout to automatically update
+
+        //Use setTimeout to automatically update the tweets
+        var scheduleNextUpdate = function(){
+          getTweets();
+          setTimeout(scheduleNextUpdate, 1500);
+        };
+        scheduleNextUpdate();
       });
     </script>
   </body>
