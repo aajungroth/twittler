@@ -3,16 +3,38 @@ div {
 }
 
 .refresh {
-  border-style: solid;
   border-color: orange;
 }
 
+.time_line {
+  border-color: red;
+}
+
+.time_stamp {
+  border-color: none;
+  border-style: none;
+}
+
 .title {
+  border-color: blue;
   border-style: solid;
+}
+
+.tweet {
   border-color: blue;
 }
 
 .tweets {
-  border-style: dashed;
-  border-color: green;
+  border-color: none;
+  border-style: none;
+}
+
+.user {
+  border-color: none;
+  border-style: none;
+}
+
+.user_name {
+  border-color: none;
+  border-style: none;
 }

@@ -23,10 +23,13 @@
 
           while(index >= 0){
             var tweet = streams.home[index];
-            var $tweet = $('<div></div>');
-
-            $tweet.text('@' + tweet.user + ': ' + tweet.message +
-              '>' + tweet.created_at);
+            var $tweet = $('<div class=tweet>\
+              <div class=user_name></div>\
+              <div class=time_stamp></div>\
+              </div>');
+            $tweet.find('.user_name').text('@' + tweet.user + ': ' + tweet.message);
+            $tweet.find('.user_name').data({name: tweet.user});
+            $tweet.find('.time_stamp').text('> ' + tweet.created_at);
             $tweet.appendTo($body);
             index -= 1;
           }
@@ -38,9 +41,38 @@
           getTweets();
         });
 
+        //On click event when a user clicks on a username
+          //The user's name should be put in data
+            //so that the user name can be retrieved
+          //have the users tweets slide toggle so that
+            //that they can be added or removed
+          //the information that slides down should be in
+            //its own div with its own class
+          //the information will be all the users tweets
+            //with the most recent at the top
+          //the code will be similar to whats in get
+            //tweets, but for the specific user
+        $('.tweets').on('click', '.user_name', function() {
+          var userName = $(this).data().name;
+          var tweet = streams.users[userName][0];
+          var $tweet = $('<div class=time_line>\
+            <div class=user></div>\
+            <div class=time_stamp></div>\
+            </div>');
+
+          $('.time_line').remove();
+          $tweet.find('.user').text('@' + tweet.user + ': ' + tweet.message);
+          $tweet.find('.time_stamp').text('> ' + tweet.created_at);
+          $tweet.appendTo($(this).closest('.tweet'));
+        });
+
+        $('.tweets').on('click', '.time_line', function() {
+          $(this).remove();
+        });
+
         var scheduleNextUpdate = function(){
           getTweets();
-          setTimeout(scheduleNextUpdate, 1500);
+          setTimeout(scheduleNextUpdate, 10000);
         };
         scheduleNextUpdate();
       });
