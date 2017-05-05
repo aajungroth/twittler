@@ -35,24 +35,7 @@
           }
         };
 
-        getTweets();
-
-        $('.title').on('click', '.refresh', function() {
-          getTweets();
-        });
-
-        //On click event when a user clicks on a username
-          //The user's name should be put in data
-            //so that the user name can be retrieved
-          //have the users tweets slide toggle so that
-            //that they can be added or removed
-          //the information that slides down should be in
-            //its own div with its own class
-          //the information will be all the users tweets
-            //with the most recent at the top
-          //the code will be similar to whats in get
-            //tweets, but for the specific user
-        $('.tweets').on('click', '.user_name', function() {
+        var getTimeLine = function() {
           var userName = $(this).data().name;
           var index = streams.users[userName].length - 1;
 
@@ -66,12 +49,18 @@
 
             $tweet.find('.user').text('@' + tweet.user + ': ' + tweet.message);
             $tweet.find('.time_stamp').text('> ' + tweet.created_at);
-            $tweet.appendTo($(this).closest('.tweet'));
+            $tweet.appendTo($(this).closest('body').find('.title'));
             index -= 1;
           };
-        });
+        };
 
-        $('.tweets').on('click', '.time_line', function() {
+        getTweets();
+
+        $('.title').on('click', '.refresh', getTweets);
+
+        $('.tweets').on('click', '.user_name', getTimeLine);
+
+        $('.title').on('click', '.time_line', function() {
           $('.time_line').remove();
         });
 
