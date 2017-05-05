@@ -15,8 +15,7 @@
     <script>
 
       $(document).ready(function(){
-        //var $body = $('body');
-        $body = $('body').find('.tweets');
+        var $body = $('body').find('.tweets');
 
         var getTweets = function() {
           $body.html('');
@@ -26,7 +25,8 @@
             var tweet = streams.home[index];
             var $tweet = $('<div></div>');
 
-            $tweet.text('@' + tweet.user + ': ' + tweet.message);
+            $tweet.text('@' + tweet.user + ': ' + tweet.message +
+              '>' + tweet.created_at);
             $tweet.appendTo($body);
             index -= 1;
           }
@@ -38,7 +38,6 @@
           getTweets();
         });
 
-        //Use setTimeout to automatically update the tweets
         var scheduleNextUpdate = function(){
           getTweets();
           setTimeout(scheduleNextUpdate, 1500);
