@@ -1,14 +1,19 @@
+<!--Andrew Marshall-->
+<!--Alexander Jungroth-->
 <!DOCTYPE html>
 <html>
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
     <link rel="stylesheet" href="twittler_stylesheet.css"/>
+    <link rel="stylesheet" href="testcss.css"/>
   </head>
   <body>
     <div class="title">
+      <img class='generalSite' id='logo' src='http://assets.dailykos.com/assets/Twitter_logo_orange-06d43b4ef7645e3f5fb38b182401f904.png'/>
       <h1>Welcome to Twittler!</h1>
-      <button class="refresh">Click to refresh</button>
+      <button class="refresh"><img id='refresh' src='http://www.iconsdb.com/icons/preview/orange/refresh-xxl.png'/></button>
+      <span>Click on a user name to display their timeline. Click on the timeline to remove it.</span>
     </div>
     <div class="tweets">
     <div>
@@ -24,10 +29,12 @@
           while(index >= 0){
             var tweet = streams.home[index];
             var $tweet = $('<div class=tweet>\
-              <div class=user_name></div>\
+              <a class=user_name/>\
+              <div class=message></div>\
               <div class=time_stamp></div>\
               </div>');
-            $tweet.find('.user_name').text('@' + tweet.user + ': ' + tweet.message);
+            $tweet.find('.user_name').text('@' + tweet.user);
+            $tweet.find('.message').text(': ' + tweet.message);
             $tweet.find('.user_name').data({name: tweet.user});
             $tweet.find('.time_stamp').text('> ' + tweet.created_at);
             $tweet.appendTo($body);

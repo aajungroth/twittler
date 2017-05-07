@@ -1,10 +1,27 @@
+button {
+  display: block;
+}
+
 div {
   border-style: solid;
+}
+
+h1 {
+  display: inline-block;
+}
+
+.message {
+  border-style: none;
+  float: left;
 }
 
 .refresh {
   border-color: orange;
 }
+
+::selection{
+  color: orange;
+};
 
 .time_line {
   border-color: red;
@@ -13,15 +30,16 @@ div {
 .time_stamp {
   border-color: none;
   border-style: none;
+  clear: both;
 }
 
 .title {
-  border-color: blue;
+  border-color: orange;
   border-style: solid;
 }
 
 .tweet {
-  border-color: blue;
+  border-color: orange;
 }
 
 .tweets {
@@ -37,4 +55,5 @@ div {
 .user_name {
   border-color: none;
   border-style: none;
+  float: left;
 }
